@@ -14,15 +14,22 @@ import br.com.alura.forum.repository.TopicoRepository;
 @RestController
 @RequestMapping("/topicos")
 public class TopicosController {
-	
+
 	@Autowired
 	TopicoRepository topicoRepository;
 
 	@GetMapping
-	public List<TopicoDto> lista(){
-				
-		List<Topico> topicos = topicoRepository.findAll();
-		
-		return TopicoDto.converte(topicos);
+	public List<TopicoDto> lista(String nomeCurso) {
+
+		if (nomeCurso == null) {
+			List<Topico> topicos = topicoRepository.findAll();
+
+			return TopicoDto.converte(topicos);
+		} else {
+			List<Topico> topicos = topicoRepository.findByCursoNome(nomeCurso);
+
+			return TopicoDto.converte(topicos);
+		}
+
 	}
 }
