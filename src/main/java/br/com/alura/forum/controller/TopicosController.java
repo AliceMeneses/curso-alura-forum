@@ -44,7 +44,7 @@ public class TopicosController {
 	private CursoRepository cursoRepository;
 
 	@GetMapping
-	@Cacheable(value = "listaDeTopicos")
+	@Cacheable(value = "listaDeTopicos")//Cache criado somente para treinar
 	public Page<TopicoDto> lista(@RequestParam(required = false) String nomeCurso, 
 			@PageableDefault(page = 0, size = 10, sort = "id", direction = Direction.DESC) Pageable paginacao) {
 
