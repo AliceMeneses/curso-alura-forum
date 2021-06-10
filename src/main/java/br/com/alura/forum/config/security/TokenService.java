@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 
 import br.com.alura.forum.modelo.Usuario;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -35,4 +36,19 @@ public class TokenService {
 					.compact();
 	}
 	
+	public Boolean isTokenValido(String token) {
+		try {
+			Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
+			return true;
+			
+		} catch(Exception ex) {
+			return false;
+		}
+	}
+
+	public Long getIdUsuario(String token) {
+		 Claims claims = Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
+		 
+		 return Long.parseLong(claims.getSubject());
+	}
 }
