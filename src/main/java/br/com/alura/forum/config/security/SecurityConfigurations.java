@@ -49,6 +49,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 			.antMatchers(HttpMethod.GET, "/topicos/*").permitAll()
 			.antMatchers(HttpMethod.POST, "/auth").permitAll()
 			.antMatchers(HttpMethod.GET, "/swagger-ui/**").permitAll()
+			.antMatchers(HttpMethod.DELETE, "/topicos/*").hasRole("MODERADOR")
 			.anyRequest().authenticated()
 			.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			.and().csrf().disable()
